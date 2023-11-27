@@ -24,18 +24,19 @@ h1{
 .image-1 {
   grid-area: image-1;
   height: 200px;
+  cursor: pointer;
 }
 
 .image-2  {
   grid-area: image-2;
   height: 200px;
-
+  cursor: pointer;
 }
 
 .image-3 {
   grid-area: image-3;
   height: 200px;
-
+  cursor: pointer;
 
 }
 
