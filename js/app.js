@@ -10,7 +10,7 @@ const imgOne = document.getElementsByClassName('image-1')[0];
 const imgTwo = document.getElementsByClassName('image-2')[0];
 const imgThree = document.getElementsByClassName('image-3')[0];
 const resultBtn = document.getElementById('show-result-btn');
-const sideBar = document.getElementsByClassName('sidebar')[0];
+const text = document.getElementsByClassName('text')[0];
 
 
 const imageArray = [imgOne, imgTwo, imgThree];
@@ -20,7 +20,7 @@ const imageArray = [imgOne, imgTwo, imgThree];
 function Product(name, imageExtension = 'jpg'){
   this.name = name;
   this.image = `img/${name}.${imageExtension}`;
-  this.vote = 0;
+  this.votes = 0;
   this.views = 0;
 }
 
@@ -53,28 +53,31 @@ function renderImgs(){
   imgThree.title = productArray[imageThreeIndex].name;
 
   //Increase the products views
-  productArray[imageOneIndex].view++
-  productArray[imageTwoIndex].view++
-  productArray[imageThreeIndex].view++
+  productArray[imageOneIndex].views++
+  productArray[imageTwoIndex].views++
+  productArray[imageThreeIndex].views++
 }
 
 //event handlers
 function handleImgClick(event){
 
 
-  let imageClicket = event.target.title;
+  let imageClicked = event.target.title;
 
   //increase the vote
   for(let i = 0; i < productArray.length; i++){
-    productArray[i].vote++;
-    votingRounds--;
-    renderImgs();
+    if(imageClicked === productArray[i].name){
+      productArray[i].votes++;
+      votingRounds--;
+      renderImgs();
+    }
   }
 
   if(votingRounds === 0){
     for(let i = 0; i < imageArray.length; i++){
       imageArray[i].removeEventListener('click', handleImgClick);
     }
+    resultBtn.style.animation = 'flash 2s linear infinite';
   }
 }
 
@@ -83,9 +86,9 @@ function handleShowResults(){
     for(let i = 0; i < productArray.length; i++){
       let productListItem = document.createElement('li');
 
-      productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].view}`;
+      productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
 
-      sideBar.appendChild(productListItem);
+      text.appendChild(productListItem);
     }
     resultBtn.removeEventListener('click', handleShowResults);
   }
