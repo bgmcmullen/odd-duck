@@ -1,0 +1,55 @@
+header{
+  border: 2px solid aqua;
+}
+
+h1{
+  font-size: 40px;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-areas:
+  "sidebar image-1    image-2    image-3"
+  "sidebar blank-area blank-area blank-area"
+  "sidebar text       text       text";
+  grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr;
+
+}
+
+.sidebar{
+  grid-area: sidebar;
+
+}
+
+.image-1 {
+  grid-area: image-1;
+  height: 200px;
+}
+
+.image-2  {
+  grid-area: image-2;
+  height: 200px;
+
+}
+
+.image-3 {
+  grid-area: image-3;
+  height: 200px;
+
+
+}
+
+.blank-area {
+  grid-area: blank-area;
+  height: 30px;
+}
+
+.text{
+  grid-area: text;
+  height: 400px;
+}
+
+footer{
+  border: 2px solid yellowgreen;
+  height: 30px;
+}
