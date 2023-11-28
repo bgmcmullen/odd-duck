@@ -1,0 +1,110 @@
+header{
+  border: 2px solid aqua;
+  color: white;
+}
+
+h1{
+  font-size: 40px;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-areas:
+  "sidebar image-1    image-2    image-3"
+  "sidebar blank-area blank-area blank-area"
+  "sidebar text       text       text";
+  grid-template-columns: 100px 1fr 1fr 1fr;
+
+}
+
+@keyframes colorSlide {
+  0% {
+    background-position: 0% 200%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: sidebar;
+  background: linear-gradient(to bottom, red, green, blue, pink, red);
+  background-size: 100% 200%;
+  animation: colorSlide 12s linear infinite;
+  border-radius: 30px;
+}
+
+button {
+  background: white;
+  height: 50px;
+}
+
+.image-1 {
+  grid-area: image-1;
+  height: 200px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-2  {
+  grid-area: image-2;
+  height: 200px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-3 {
+  grid-area: image-3;
+  height: 200px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.blank-area {
+  grid-area: blank-area;
+  height: 30px;
+}
+
+.text{
+  grid-area: text;
+  height: 400px;
+  border: 2px solid aqua;
+  color: white;
+}
+
+body{
+  background-color: black;
+}
+
+
+footer{
+  border: 2px solid yellowgreen;
+  height: 30px;
+  color: white;
+}
+
+@keyframes flash {
+  0% {
+    background-color: white;
+    color: black
+  }
+
+  50% {
+    background-color: rgb(117, 0, 0);
+    color: white;
+  }
+}
+
+li {
+  margin-left: 15px;
+}
