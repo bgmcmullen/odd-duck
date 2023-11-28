@@ -70,7 +70,7 @@ function handleImgClick(event){
     if(imageClicked === productArray[i].name){
       productArray[i].votes++;
       votingRounds--;
-      blankArea.textContent = `Please vote for your favorate products. ${votingRounds} choices remaining.`
+      blankArea.textContent = `Please vote for your favorite products. ${votingRounds} choices remaining.`
       renderImgs();
     }
   }
@@ -88,10 +88,13 @@ function handleShowResults(){
     for(let i = 0; i < productArray.length; i++){
 
       let productListItem = document.createElement('li');
-      if(productArray[i].votes === 0 && productArray[i].views !== 0)
-        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
-      else 
-        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
+      if(productArray[i].votes === 0 && productArray[i].views !== 0)  {
+        productListItem.textContent = ` - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
+      }
+      else {
+        productListItem.textContent = ` - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
+      }
+        
 
       text.appendChild(productListItem);
     }
@@ -152,3 +155,4 @@ productArray.push(
   addListeners();
 
   resultBtn.addEventListener('click', handleShowResults);
+
