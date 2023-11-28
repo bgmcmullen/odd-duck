@@ -11,6 +11,7 @@ const imgTwo = document.getElementsByClassName('image-2')[0];
 const imgThree = document.getElementsByClassName('image-3')[0];
 const resultBtn = document.getElementById('show-result-btn');
 const text = document.getElementsByClassName('text')[0];
+const blankArea = document.getElementsByClassName('blank-area')[0];
 
 
 const imageArray = [imgOne, imgTwo, imgThree];
@@ -69,6 +70,7 @@ function handleImgClick(event){
     if(imageClicked === productArray[i].name){
       productArray[i].votes++;
       votingRounds--;
+      blankArea.textContent = `Please vote for your favorate products. ${votingRounds} choices remaining.`
       renderImgs();
     }
   }
@@ -84,13 +86,17 @@ function handleImgClick(event){
 function handleShowResults(){
   if(votingRounds === 0){
     for(let i = 0; i < productArray.length; i++){
-      let productListItem = document.createElement('li');
 
-      productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
+      let productListItem = document.createElement('li');
+      if(productArray[i].votes === 0 && productArray[i].views !== 0)
+        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
+      else 
+        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
 
       text.appendChild(productListItem);
     }
     resultBtn.removeEventListener('click', handleShowResults);
+    resultBtn.style.animation = '';
   }
 }
 
@@ -134,7 +140,7 @@ productArray.push(
   tauntaun,
   unicorn,
   waterCan,
-  wineGlass)
+  wineGlass);
 
   renderImgs();
 
