@@ -88,14 +88,10 @@ function handleShowResults(){
     for(let i = 0; i < productArray.length; i++){
 
       let productListItem = document.createElement('li');
-      if(productArray[i].votes === 0 && productArray[i].views !== 0)  {
-        productListItem.textContent = ` - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
-      }
-      else {
-        productListItem.textContent = ` - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
-      }
-        
-
+      if(productArray[i].votes === 0 && productArray[i].views !== 0)
+        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
+      else
+        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
       text.appendChild(productListItem);
     }
     resultBtn.removeEventListener('click', handleShowResults);
