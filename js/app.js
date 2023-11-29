@@ -4,6 +4,7 @@
 // Global Variables
 let votingRounds = 25;
 let productArray = [];
+let previousImgNums = [];
 
 // DOM Windows
 const imgOne = document.getElementsByClassName('image-1')[0];
@@ -36,13 +37,16 @@ function renderImgs(){
   let imageOneIndex = 0;
   let imageTwoIndex = 0;
   let imageThreeIndex = 0;
-
   //make sure the yare unique
-  while(imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex){
+
+  while(imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex
+    || previousImgNums.includes(imageOneIndex) || previousImgNums.includes(imageTwoIndex) || previousImgNums.includes(imageThreeIndex)){
     imageOneIndex = randomIndexGenerator();
     imageTwoIndex = randomIndexGenerator();
     imageThreeIndex = randomIndexGenerator();
+    console.log(imageOneIndex, imageTwoIndex, imageThreeIndex, previousImgNums);
   }
+
 
   imgOne.src = productArray[imageOneIndex].image;
   imgOne.title = productArray[imageOneIndex].name;
@@ -57,6 +61,9 @@ function renderImgs(){
   productArray[imageOneIndex].views++
   productArray[imageTwoIndex].views++
   productArray[imageThreeIndex].views++
+
+  previousImgNums = [imageOneIndex, imageTwoIndex, imageThreeIndex];
+  console.log('bang');
 }
 
 //event handlers
