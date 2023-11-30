@@ -4,6 +4,7 @@
 // Global Variables
 let votingRounds = 25;
 let productArray = [];
+let previousImgNums = [];
 
 // DOM Windows
 const imgOne = document.getElementsByClassName('image-1')[0];
@@ -12,9 +13,15 @@ const imgThree = document.getElementsByClassName('image-3')[0];
 const resultBtn = document.getElementById('show-result-btn');
 const text = document.getElementsByClassName('text')[0];
 const blankArea = document.getElementsByClassName('blank-area')[0];
+const ctx = document.getElementById('myChart');
 
 
 const imageArray = [imgOne, imgTwo, imgThree];
+
+
+
+
+
 
 
 // Contructor Function
@@ -36,13 +43,15 @@ function renderImgs(){
   let imageOneIndex = 0;
   let imageTwoIndex = 0;
   let imageThreeIndex = 0;
-
   //make sure the yare unique
-  while(imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex){
+
+  while(imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex
+    || previousImgNums.includes(imageOneIndex) || previousImgNums.includes(imageTwoIndex) || previousImgNums.includes(imageThreeIndex)){
     imageOneIndex = randomIndexGenerator();
     imageTwoIndex = randomIndexGenerator();
     imageThreeIndex = randomIndexGenerator();
   }
+
 
   imgOne.src = productArray[imageOneIndex].image;
   imgOne.title = productArray[imageOneIndex].name;
@@ -57,6 +66,8 @@ function renderImgs(){
   productArray[imageOneIndex].views++
   productArray[imageTwoIndex].views++
   productArray[imageThreeIndex].views++
+
+  previousImgNums = [imageOneIndex, imageTwoIndex, imageThreeIndex];
 }
 
 //event handlers
@@ -85,15 +96,47 @@ function handleImgClick(event){
 
 function handleShowResults(){
   if(votingRounds === 0){
+    let votesArray = [];
+    let viewsArray = [];
+    let namesArray = [];
     for(let i = 0; i < productArray.length; i++){
 
-      let productListItem = document.createElement('li');
-      if(productArray[i].votes === 0 && productArray[i].views !== 0)
-        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} 😢 & Views: ${productArray[i].views}`;
-      else
-        productListItem.textContent = `${productArray[i].name} - Votes: ${productArray[i].votes} & Views: ${productArray[i].views}`;
-      text.appendChild(productListItem);
+      votesArray.push(productArray[i].votes);
+      viewsArray.push(productArray[i].views);
+      namesArray.push(productArray[i].name)
     }
+    let chartObj = {
+      type: 'bar',
+      data: {
+        labels: namesArray,
+        datasets: [{
+          label: 'Votes',
+          data: votesArray,
+          borderWidth: 5,
+          backgroundColor: 'blue',
+          borderColor: 'red'
+        },
+        {
+          label: 'Views',
+          data: viewsArray,
+          borderWidth: 5,
+          backgroundColor: 'red',
+          borderColor: 'blue',
+        }
+      ]
+    },
+      options: {
+
+        scales: {
+          y: {
+            beginAtZero: true,
+          }
+        }
+      }
+    }
+      
+      new Chart(ctx, chartObj);
+    
     resultBtn.removeEventListener('click', handleShowResults);
     resultBtn.style.animation = '';
   }
