@@ -15,14 +15,7 @@ const text = document.getElementsByClassName('text')[0];
 const blankArea = document.getElementsByClassName('blank-area')[0];
 const ctx = document.getElementById('myChart');
 
-
 const imageArray = [imgOne, imgTwo, imgThree];
-
-
-
-
-
-
 
 // Contructor Function
 function Product(name, imageExtension = 'jpg'){
@@ -37,13 +30,12 @@ function randomIndexGenerator(){
   return Math.floor(Math.random() * productArray.length);
 }
 
-
+  //Get 3 random images on the page and make sure they are unique
 function renderImgs(){
-  //Get 3 random images on the page
+
   let imageOneIndex = 0;
   let imageTwoIndex = 0;
   let imageThreeIndex = 0;
-  //make sure the yare unique
 
   while(imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex
     || previousImgNums.includes(imageOneIndex) || previousImgNums.includes(imageTwoIndex) || previousImgNums.includes(imageThreeIndex)){
@@ -72,8 +64,6 @@ function renderImgs(){
 
 //event handlers
 function handleImgClick(event){
-
-
   let imageClicked = event.target.title;
 
   //increase the vote
@@ -92,6 +82,7 @@ function handleImgClick(event){
     }
     resultBtn.style.animation = 'flash 2s linear infinite';
 
+    //send data to local storage
     let stringifiedProducts = JSON.stringify(productArray);
 
     localStorage.setItem('myProducts', stringifiedProducts);
@@ -99,6 +90,7 @@ function handleImgClick(event){
   }
 }
 
+//show results on bar chart
 function handleShowResults(){
   if(votingRounds === 0){
     let votesArray = [];
@@ -147,9 +139,11 @@ function handleShowResults(){
   }
 }
 
+//retrieve data from local storage
 let retrievedProducts = JSON.parse(localStorage.getItem('myProducts'));
 
 if(retrievedProducts){
+  //add stored data to objects
   for(let i = 0; i < retrievedProducts.length; i++){
     let recontructedProduct = new Product(retrievedProducts[i].name, retrievedProducts[i].image.slice(-3));
     recontructedProduct.views = retrievedProducts[i].views;
@@ -159,6 +153,7 @@ if(retrievedProducts){
 } 
 else{
 
+  //create objects
   const bag = new Product('bag');
   const banana = new Product('banana');
   const bathroom = new Product('bathroom')
